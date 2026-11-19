@@ -3,21 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Cover Maker — GTA-style cover art from your photos</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
-  </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <header class="topbar">
+    <h1>VICE COVER MAKER</h1>
+    <p class="tagline">Turn your photos into a neon-sunset multi-panel poster. Everything runs offline, in your browser — your photos never leave your machine.</p>
+  </header>
+
+  <div class="workspace">
+    <section class="controls" aria-label="Cover controls">
+      <h2>1 · Photos</h2>
+      <p class="hint">Fill the three panels with one photo or three different ones. Drag the sliders to crop and position each photo.</p>
+      <div class="panel-box" data-panel="hero">
+        <h3>Hero panel <span class="panel-note">(big, top)</span></h3>
+        <label class="file-label">Choose photo <input type="file" accept="image/*" data-photo="hero"></label>
+        <button type="button" data-sample="hero">Use sample photo</button>
+        <button type="button" data-fillall="hero">Use for all panels</button>
+        <label>Zoom <input type="range" min="1" max="3" step="0.05" value="1.2" data-zoom="hero"></label>
+        <label>Left–right <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offx="hero"></label>
+        <label>Up–down <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offy="hero"></label>
+      </div>
+      <div class="panel-box" data-panel="left">
+        <h3>Panel B <span class="panel-note">(bottom left)</span></h3>
+        <label class="file-label">Choose photo <input type="file" accept="image/*" data-photo="left"></label>
+        <button type="button" data-sample="left">Use sample photo</button>
+        <button type="button" data-fillall="left">Use for all panels</button>
+        <label>Zoom <input type="range" min="1" max="3" step="0.05" value="1.2" data-zoom="left"></label>
+        <label>Left–right <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offx="left"></label>
+        <label>Up–down <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offy="left"></label>
+      </div>
+      <div class="panel-box" data-panel="right">
+        <h3>Panel C <span class="panel-note">(bottom right)</span></h3>
+        <label class="file-label">Choose photo <input type="file" accept="image/*" data-photo="right"></label>
+        <button type="button" data-sample="right">Use sample photo</button>
+        <button type="button" data-fillall="right">Use for all panels</button>
+        <label>Zoom <input type="range" min="1" max="3" step="0.05" value="1.2" data-zoom="right"></label>
+        <label>Left–right <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offx="right"></label>
+        <label>Up–down <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-offy="right"></label>
+      </div>
+
+      <h2>2 · Caption</h2>
+      <label>Main caption <input id="caption" type="text" maxlength="48" value="Sunset Heist"></label>
+      <label>Sub-caption <input id="subcaption" type="text" maxlength="60" value="One last ride down the boulevard"></label>
+
+      <h2>3 · Look</h2>
+      <label>Sunset grade <input id="grade" type="range" min="0" max="1" step="0.05" value="0.55"></label>
+
+      <h2>4 · Size &amp; export</h2>
+      <div class="sizes" role="group" aria-label="Export size">
+        <button type="button" data-size="square">1080 × 1080</button>
+        <button type="button" data-size="portrait" class="active">1080 × 1350</button>
+        <button type="button" data-size="wide">1920 × 1080</button>
+      </div>
+      <button id="export" type="button" class="export">Export PNG</button>
+      <p id="status" role="status"></p>
+    </section>
+
+    <section class="preview" aria-label="Live preview">
+      <canvas id="cover" width="1080" height="1350" aria-label="The cover preview"></canvas>
+      <p class="preview-note">Live preview — what you see is what the PNG will be.</p>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <p>Original design. No Rockstar Games logos, artwork or fonts. Anton typeface (SIL Open Font License) ships under app/fonts/. Sample photos were made with an image model and are free to use.</p>
+  </footer>
 </main>
-<script type="module" src="./src/main.js"></script>
+<script type="module" src="./app.js"></script>
 </body>
 </html>
